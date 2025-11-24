@@ -1,0 +1,40 @@
+<!-- School Administration Portal - HTML/CSS/JS starter template -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Admin Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="login-container" id="loginPage">
+      <h2>School Admin Portal</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <div class="dashboard hidden" id="dashboardPage">
+      <nav>
+        <h3 id="roleLabel">Dashboard</h3>
+        <button onclick="logout()">Logout</button>
+      </nav>
+
+      <section id="contentArea">
+        <h2>Welcome to the School Admin Portal</h2>
+        <p>Select an option from the menu.</p>
+      </section>
+
+      <aside class="menu">
+        <button onclick="showStudents()">Students</button>
+        <button onclick="showTeachers()">Teachers</button>
+        <button onclick="showClasses()">Classes</button>
+      </aside>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
