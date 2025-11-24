@@ -8,12 +8,18 @@
 </head>
 <body>
   <div id="app">
+
     <!-- LOGIN PAGE -->
     <div class="login-container" id="loginPage">
-      <h2>School Admin Portal</h2>
-      <input type="text" id="username" placeholder="Username" />
-      <input type="password" id="password" placeholder="Password" />
-      <button onclick="login()">Login</button>
+      <div class="login-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="login-icon" />
+        <h2>Welcome Back</h2>
+        <p class="login-sub">Sign in to continue to your dashboard</p>
+
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
+        <button onclick="login()">Login</button>
+      </div>
     </div>
 
     <!-- DASHBOARD -->
@@ -24,14 +30,17 @@
       </nav>
 
       <aside class="menu">
-        <button onclick="showStudents()">Students</button>
-        <button onclick="showTeachers()">Teachers</button>
-        <button onclick="showClasses()">Classes</button>
+        <h4 class="menu-title">Menu</h4>
+        <button onclick="showStudents()">📘 Students</button>
+        <button onclick="showTeachers()">👨🏽‍🏫 Teachers</button>
+        <button onclick="showClasses()">🏫 Classes</button>
       </aside>
 
-      <section id="contentArea">
-        <h2>Welcome to the School Admin Portal</h2>
-        <p>Select an option from the menu.</p>
+      <section id="contentArea" class="content">
+        <div class="welcome-card">
+          <h2>Welcome to the School Admin Portal</h2>
+          <p>Use the menu to manage students, teachers, and classes.</p>
+        </div>
       </section>
     </div>
   </div>
