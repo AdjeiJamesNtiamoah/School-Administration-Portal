@@ -1,9 +1,13 @@
-/* School Admin Portal - CSS Styling */
+/* =============================================================
+   Modern Professional School Admin Portal UI - styles.css
+   ============================================================= */
 
+/* ---------- GLOBAL ---------- */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f4f7;
+  font-family: 'Poppins', sans-serif;
+  background: #eef1f5;
+  color: #333;
 }
 
 #app {
@@ -13,123 +17,224 @@ body {
   height: 100vh;
 }
 
-/* ---------------- LOGIN PAGE ---------------- */
-.login-container {
-  background: white;
-  padding: 30px;
-  width: 350px;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h2 {
-  margin-bottom: 20px;
-  font-weight: 700;
-}
-
-.login-container input {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-.login-container button {
-  width: 100%;
-  padding: 12px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.login-container button:hover {
-  background: #005fcc;
-}
-
-/* ---------------- DASHBOARD ---------------- */
-.dashboard {
-  display: grid;
-  grid-template-columns: 200px auto;
-  grid-template-rows: 60px auto;
-  width: 100%;
-  height: 100vh;
-}
-
 .hidden {
   display: none !important;
 }
 
-nav {
-  grid-column: span 2;
-  background: #007bff;
-  color: white;
+/* ---------- LOGIN PAGE ---------- */
+.login-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #1976d2, #42a5f5);
 }
 
-nav h3 {
-  font-size: 22px;
-  font-weight: 600;
+.login-card {
+  background: white;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  animation: fadeIn 0.7s ease;
+}
+
+.login-icon {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.login-sub {
+  margin-top: -10px;
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.login-card input:focus {
+  border-color: #1976d2;
+  outline: none;
+  box-shadow: 0 0 6px rgba(25,118,210,0.4);
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.login-card button:hover {
+  background: #0d47a1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- DASHBOARD LAYOUT ---------- */
+.dashboard {
+  display: grid;
+  grid-template-columns: 230px auto;
+  grid-template-rows: 65px auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ---------- NAVBAR ---------- */
+nav {
+  grid-column: span 2;
+  background: #1976d2;
+  color: white;
+  padding: 0 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
 
 nav button {
-  padding: 8px 15px;
   background: white;
-  color: #007bff;
+  color: #1976d2;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 8px;
   font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 nav button:hover {
-  background: #e6e6e6;
+  background: #e2e2e2;
 }
 
-/* ---------------- SIDE MENU ---------------- */
+/* ---------- SIDEBAR MENU ---------- */
 .menu {
-  background: #fff;
+  background: #ffffff;
   border-right: 1px solid #ddd;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+
+.menu-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #1976d2;
+  font-weight: 600;
 }
 
 .menu button {
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   padding: 12px;
-  background: #f1f1f1;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
   font-size: 16px;
+  border: none;
+  border-radius: 8px;
   text-align: left;
+  background: #f4f6f9;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .menu button:hover {
-  background: #e1e1e1;
+  background: #e1e7f2;
+  transform: translateX(4px);
 }
 
-/* ---------------- CONTENT AREA ---------------- */
-#contentArea {
-  padding: 20px;
-  background: #f9f9f9;
+/* ---------- CONTENT ---------- */
+.content {
+  padding: 30px;
+  overflow-y: auto;
+  background: #f5f7fb;
 }
 
-#contentArea h2 {
-  font-size: 26px;
+.welcome-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+  animation: fadeIn 0.6s ease;
+}
+
+.welcome-card h2 {
   margin-bottom: 10px;
+  font-size: 28px;
+  color: #1976d2;
 }
 
-#contentArea p {
-  font-size: 18px;
-  color: #666;
+/* ---------- TABLES (for students/teachers/classes) ---------- */
+.table-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+table th {
+  background: #1976d2;
+  color: white;
+  text-align: left;
+}
+
+table tr:hover td {
+  background: #f4faff;
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+.btn-primary {
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #0d47a1;
+}
+
+.btn-danger {
+  background: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #b71c1c;
 }
