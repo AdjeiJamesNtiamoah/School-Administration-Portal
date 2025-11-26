@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>School Admin Portal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,120 +10,64 @@
   <div id="app">
 
     <!-- LOGIN -->
-    <main class="centered" id="loginScreen">
-      <div class="card login-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="logo" class="logo" />
-        <h1>School Admin Portal</h1>
-        <p class="muted">Sign in to manage students, teachers and classes</p>
-
-        <input id="inputEmail" type="text" placeholder="Username or Email" />
-        <input id="inputPassword" type="password" placeholder="Password" />
-        <button class="btn primary" id="btnLogin">Sign in</button>
-
-        <div class="muted small">Demo accounts: <strong>admin/admin123</strong>, <strong>teacher/teach123</strong>, <strong>student/stud123</strong></div>
-      </div>
-    </main>
-
-    <!-- APP (hidden until login) -->
-    <div id="appShell" class="hidden">
-
-      <!-- top nav -->
-      <nav class="topbar">
+    <div id="loginPage" class="page login-page">
+      <div class="login-card">
         <div class="brand">
-          <h2>APS Portal</h2>
+          <div class="logo">APS</div>
+          <div class="brand-text">
+            <h1>Apostolic Prep</h1>
+            <div class="muted">Administration Portal</div>
+          </div>
         </div>
-        <div class="top-actions">
-          <span id="welcomeText" class="muted"></span>
-          <button class="btn danger" id="btnLogout">Logout</button>
+
+        <h2>Welcome back</h2>
+        <p class="muted sub">Sign in to continue to your dashboard</p>
+
+        <input id="loginUser" placeholder="Username" />
+        <input id="loginPass" type="password" placeholder="Password" />
+        <div class="row">
+          <button class="btn-primary" onclick="login()">Sign in</button>
+        </div>
+
+        <div class="demo-note muted">
+          Demo users: <strong>admin/admin123</strong>, <strong>teacher/teach123</strong>, <strong>student/stud123</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP -->
+    <div id="appPage" class="page hidden">
+      <nav>
+        <div class="nav-left">
+          <div class="nav-brand">Apostolic Prep — Portal</div>
+        </div>
+        <div class="nav-right">
+          <span id="currentUserLabel" class="muted"></span>
+          <button class="btn-ghost" onclick="openProfile()">Profile</button>
+          <button class="btn-danger" onclick="logout()">Logout</button>
         </div>
       </nav>
 
-      <!-- layout: sidebar + content -->
-      <div class="layout">
-        <aside class="sidebar">
-          <h3 class="menu-title">Menu</h3>
-          <button class="menu-btn" data-hash="#dashboard">Dashboard</button>
-          <button class="menu-btn" data-hash="#students">Students</button>
-          <button class="menu-btn" data-hash="#teachers">Teachers</button>
-          <button class="menu-btn" data-hash="#classes">Classes</button>
-          <button class="menu-btn admin-only" data-hash="#users">Users</button>
+      <div class="dashboard">
+        <aside class="menu">
+          <div class="menu-top">
+            <div class="menu-title">Menu</div>
+          </div>
+
+          <button onclick="route('dashboard')" id="mDashboard">Dashboard</button>
+          <button onclick="route('students')" id="mStudents">Students</button>
+          <button onclick="route('teachers')" id="mTeachers">Teachers</button>
+          <button onclick="route('classes')" id="mClasses">Classes</button>
+          <button onclick="route('users')" id="mUsers" class="hidden">Users</button>
+
+          <div class="spacer"></div>
+          <div class="small muted">School: Apostolic Preparatory</div>
         </aside>
 
-        <section class="content">
-          <!-- DASHBOARD -->
-          <section id="page-dashboard" class="page">
-            <div class="panel">
-              <h2>Dashboard Overview</h2>
-              <div class="cards">
-                <div class="stat">
-                  <div class="stat-value" id="statStudents">0</div>
-                  <div class="stat-label">Total Students</div>
-                </div>
-                <div class="stat">
-                  <div class="stat-value" id="statTeachers">0</div>
-                  <div class="stat-label">Total Teachers</div>
-                </div>
-                <div class="stat">
-                  <div class="stat-value" id="statAttendance">—</div>
-                  <div class="stat-label">Attendance Rate</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- STUDENTS -->
-          <section id="page-students" class="page hidden">
-            <div class="panel">
-              <div class="panel-header">
-                <h2>Students</h2>
-                <div>
-                  <button class="btn primary" id="addStudentBtn">Add Student</button>
-                  <button class="btn" id="importStudentsBtn">Import CSV</button>
-                </div>
-              </div>
-              <div id="studentsTableContainer"></div>
-            </div>
-          </section>
-
-          <!-- TEACHERS -->
-          <section id="page-teachers" class="page hidden">
-            <div class="panel">
-              <div class="panel-header">
-                <h2>Teachers</h2>
-                <button class="btn primary" id="addTeacherBtn">Add Teacher</button>
-              </div>
-              <div id="teachersTableContainer"></div>
-            </div>
-          </section>
-
-          <!-- CLASSES -->
-          <section id="page-classes" class="page hidden">
-            <div class="panel">
-              <div class="panel-header">
-                <h2>Classes</h2>
-                <button class="btn primary" id="addClassBtn">Create Class</button>
-              </div>
-              <div id="classesTableContainer"></div>
-            </div>
-          </section>
-
-          <!-- USERS (Admin only) -->
-          <section id="page-users" class="page hidden">
-            <div class="panel">
-              <div class="panel-header">
-                <h2>Users</h2>
-                <button class="btn primary" id="inviteUserBtn">Invite User</button>
-              </div>
-              <div id="usersTableContainer"></div>
-            </div>
-          </section>
-
-        </section>
+        <main class="content" id="content">
+          <!-- pages rendered here -->
+        </main>
       </div>
-
-      <!-- simple modal area -->
-      <div id="modalRoot" class="modal-root hidden"></div>
-
     </div>
   </div>
 
