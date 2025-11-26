@@ -1,76 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>School Admin Portal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="app">
 
-    <!-- LOGIN -->
-    <div id="loginPage" class="page login-page">
+    <!-- LOGIN PAGE -->
+    <div class="login-container" id="loginPage">
       <div class="login-card">
-        <div class="brand">
-          <div class="logo">APS</div>
-          <div class="brand-text">
-            <h1>Apostolic Prep</h1>
-            <div class="muted">Administration Portal</div>
-          </div>
-        </div>
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" class="login-icon" alt="logo" />
+        <h2>Welcome Back</h2>
+        <p class="login-sub">Sign in to continue to your dashboard</p>
 
-        <h2>Welcome back</h2>
-        <p class="muted sub">Sign in to continue to your dashboard</p>
-
-        <input id="loginUser" placeholder="Username" />
-        <input id="loginPass" type="password" placeholder="Password" />
-        <div class="row">
-          <button class="btn-primary" onclick="login()">Sign in</button>
-        </div>
-
-        <div class="demo-note muted">
-          Demo users: <strong>admin/admin123</strong>, <strong>teacher/teach123</strong>, <strong>student/stud123</strong>
-        </div>
+        <input type="text" id="username" placeholder="Username" autocomplete="username" />
+        <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+        <button id="loginBtn">Login</button>
+        <p style="margin-top:12px;color:#6c7a91;font-size:13px;">Demo accounts: <strong>admin/admin123</strong>, <strong>teacher/teach123</strong>, <strong>student/stud123</strong></p>
       </div>
     </div>
 
-    <!-- APP -->
-    <div id="appPage" class="page hidden">
+    <!-- DASHBOARD -->
+    <div class="dashboard hidden" id="dashboardPage">
       <nav>
-        <div class="nav-left">
-          <div class="nav-brand">Apostolic Prep — Portal</div>
-        </div>
-        <div class="nav-right">
-          <span id="currentUserLabel" class="muted"></span>
-          <button class="btn-ghost" onclick="openProfile()">Profile</button>
-          <button class="btn-danger" onclick="logout()">Logout</button>
+        <div id="brand">School Admin Portal</div>
+        <div class="nav-actions">
+          <span id="currentUser" style="margin-right:12px;"></span>
+          <button id="logoutBtn">Logout</button>
         </div>
       </nav>
 
-      <div class="dashboard">
-        <aside class="menu">
-          <div class="menu-top">
-            <div class="menu-title">Menu</div>
+      <aside class="menu">
+        <div class="menu-title">Admin Menu</div>
+        <button data-page="dashboard" class="nav-btn">📊 Dashboard</button>
+        <button data-page="students" class="nav-btn">📘 Students</button>
+        <button data-page="teachers" class="nav-btn">👩🏽‍🏫 Teachers</button>
+        <button data-page="classes" class="nav-btn">🏫 Classes</button>
+        <button data-page="users" class="nav-btn">👥 Users</button>
+      </aside>
+
+      <section class="content">
+        <!-- Dashboard Section -->
+        <section id="dashboardSection" class="page-section">
+          <div class="welcome-card">
+            <h2>Welcome to the Admin Dashboard</h2>
+            <p>Overview and quick actions for administrators.</p>
+
+            <div class="card-grid" style="margin-top:20px;">
+              <div class="card">
+                <h3>Total Students</h3>
+                <div class="value" id="dashboardStudents">0</div>
+              </div>
+              <div class="card">
+                <h3>Total Teachers</h3>
+                <div class="value" id="dashboardTeachers">0</div>
+              </div>
+              <div class="card">
+                <h3>Active Classes</h3>
+                <div class="value" id="dashboardClasses">0</div>
+              </div>
+              <div class="card">
+                <h3>System Users</h3>
+                <div class="value" id="dashboardUsers">0</div>
+              </div>
+            </div>
           </div>
 
-          <button onclick="route('dashboard')" id="mDashboard">Dashboard</button>
-          <button onclick="route('students')" id="mStudents">Students</button>
-          <button onclick="route('teachers')" id="mTeachers">Teachers</button>
-          <button onclick="route('classes')" id="mClasses">Classes</button>
-          <button onclick="route('users')" id="mUsers" class="hidden">Users</button>
+          <div class="table-container" style="margin-top:20px;">
+            <h3>Recent Activity</h3>
+            <ul id="recentActivity">
+              <li>No activity yet</li>
+            </ul>
+          </div>
+        </section>
 
-          <div class="spacer"></div>
-          <div class="small muted">School: Apostolic Preparatory</div>
-        </aside>
+        <!-- Students Section -->
+        <section id="studentsSection" class="page-section hidden">
+          <div class="table-container">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Students</h3>
+              <div>
+                <input id="searchStudents" placeholder="Search students..." oninput="tableSearch('searchStudents','studentTableBody')" />
+                <button class="btn-primary" onclick="showAddStudentModal()">Add Student</button>
+              </div>
+            </div>
 
-        <main class="content" id="content">
-          <!-- pages rendered here -->
-        </main>
-      </div>
+            <table>
+              <thead><tr><th>Name</th><th>Class</th><th>Age</th><th>Action</th></tr></thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Teachers Section -->
+        <section id="teachersSection" class="page-section hidden">
+          <div class="table-container">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Teachers</h3>
+              <div>
+                <input id="searchTeachers" placeholder="Search teachers..." oninput="tableSearch('searchTeachers','teacherTableBody')" />
+                <button class="btn-primary" onclick="showAddTeacherModal()">Add Teacher</button>
+              </div>
+            </div>
+
+            <table>
+              <thead><tr><th>Name</th><th>Subject</th><th>Action</th></tr></thead>
+              <tbody id="teacherTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Classes Section -->
+        <section id="classesSection" class="page-section hidden">
+          <div class="table-container">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Classes</h3>
+              <div>
+                <input id="searchClasses" placeholder="Search classes..." oninput="tableSearch('searchClasses','classTableBody')" />
+                <button class="btn-primary" onclick="showAddClassModal()">Add Class</button>
+              </div>
+            </div>
+
+            <table>
+              <thead><tr><th>Class</th><th>Teacher</th><th>Action</th></tr></thead>
+              <tbody id="classTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="usersSection" class="page-section hidden">
+          <div class="table-container">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3>Users</h3>
+              <div>
+                <input id="searchUsers" placeholder="Search users..." oninput="tableSearch('searchUsers','userTableBody')" />
+                <button class="btn-primary" onclick="showAddUserModal()">Add User</button>
+              </div>
+            </div>
+
+            <table>
+              <thead><tr><th>Username</th><th>Role</th><th>Action</th></tr></thead>
+              <tbody id="userTableBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
     </div>
   </div>
-  <script src="script.js"></script>
 
+  <!-- Modals (simple prompt-based modals handled by JS) -->
+  <script src="app.js"></script>
 </body>
 </html>
