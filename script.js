@@ -1,5 +1,6 @@
 // =============================
-// BASIC ADMIN PORTAL FUNCTIONALITY
+// BASIC ADMIN PORTAL FUNCTIONALITY (Navigation, Logout, UI Enhancements)
+// =============================
 // =============================
 
 // Navigation between pages
@@ -146,3 +147,37 @@ function updateDashboardCounts() {
 }
 
 setInterval(updateDashboardCounts, 700);
+
+// =============================
+// UNIVERSAL SEARCH SYSTEM (For All Tables)
+// =============================
+function tableSearch(inputId, tableId) {
+  const search = document.getElementById(inputId).value.toLowerCase();
+  const rows = document.querySelectorAll(`#${tableId} tr`);
+
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(search) ? '' : 'none';
+  });
+}
+
+// =============================
+// DELETE ROW BUTTONS
+// =============================
+function enableDeleteButtons() {
+  document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      this.closest('tr').remove();
+      updateDashboardCounts();
+    });
+  });
+}
+
+// Add delete button dynamically to rows
+function addDeleteButton(row) {
+  const deleteCell = document.createElement('td');
+  deleteCell.innerHTML = `<button class="delete-btn" style="background:#e63946;color:#fff;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">Delete</button>`;
+  row.appendChild(deleteCell);
+  enableDeleteButtons();
+}
+
